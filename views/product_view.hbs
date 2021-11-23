@@ -1,0 +1,244 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Tugas EAS Jarkom | ReSan</title>
+    <link href="/assets/css/bootstrap.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="text-center">Tabel Mahasiswa</h1>
+      <button
+        class="btn btn-primary"
+        data-toggle="modal"
+        data-target="#myModalAdd"
+      >Tambah Baru</button>
+      <table class="table table-striped" id="mytable">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Nama</th>
+            <th>NBI</th>
+            <th>jurusan</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each results}}
+            <tr>
+              <td>{{product_id}}</td>
+              <td>{{nama}}</td>
+              <td>{{NBI}}</td>
+              <td>{{jurusan}}</td>
+              <td>
+                <a
+                  href="javascript:void(0);"
+                  class="btn btn-sm btn-info edit"
+                  data-id="{{product_id}}"
+                  data-nama="{{nama}}"
+                  data-NBI="{{NBI}}"
+                  data-jurusan="{{jurusan}}"
+                >Edit</a>
+                <a
+                  href="javascript:void(0);"
+                  class="btn btn-sm btn-danger delete"
+                  data-id="{{product_id}}"
+                >Delete</a>
+              </td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Tambah data mahasiswa-->
+    <form action="/save" method="post">
+      <div
+        class="modal fade"
+        id="myModalAdd"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Tambah data mhs</h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <input
+                  type="text"
+                  name="nama"
+                  class="form-control"
+                  placeholder="Masukan nama"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <input
+                  type="text"
+                  name="NBI"
+                  class="form-control"
+                  placeholder="masukan NBI"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  type="text"
+                  name="jurusan"
+                  class="form-control"
+                  placeholder="masukan jurusan"
+                  required
+                />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >Close</button>
+              <button type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <!-- Edit tabel-->
+    <form action="/update" method="post">
+      <div
+        class="modal fade"
+        id="EditModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Edit Data mhs</h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <input
+                  type="text"
+                  name="nama"
+                  class="form-control nama"
+                  placeholder="masukan nama"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <input
+                  type="text"
+                  name="NBI"
+                  class="form-control NBI"
+                  placeholder="masukan nbi"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  type="text"
+                  name="jurusan"
+                  class="form-control jurusan"
+                  placeholder="masukan jurusan"
+                  required
+                />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <input type="hidden" name="id" class="product_id" />
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >Batal</button>
+              <button type="submit" class="btn btn-primary">Perbarui</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <!-- hapus tabel-->
+    <form id="add-row-form" action="/delete" method="post">
+      <div
+        class="modal fade"
+        id="DeleteModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="myModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="myModalLabel">Hapus Data</h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              ><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+              <strong>apa anda yakin hapus data ini?</strong>
+            </div>
+            <div class="modal-footer">
+              <input
+                type="hidden"
+                name="product_id"
+                class="form-control product_id2"
+                required
+              />
+              <button
+                type="button"
+                class="btn btn-default"
+                data-dismiss="modal"
+              >Batal</button>
+              <button type="submit" class="btn btn-success">Hapus</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <script src="/assets/js/jquery-3.3.1.js"></script>
+    <script src="/assets/js/bootstrap.js"></script>
+    <script>
+      $(document).ready(function(){ //menampilkan data untuk di edit
+      $('#mytable').on('click','.edit',function(){ var product_id =
+      $(this).data('id'); var nama = $(this).data('nama'); var NBI =
+      $(this).data('NBI');var jurusan = $(this).data('jurusan');
+      $('#EditModal').modal('show'); $('.nama').val(nama); $('.NBI').val(NBI)
+      $('.jurusan').val(jurusan); $('.product_id').val(product_id); });
+      //manampilkan data untuk dihapus
+      $('#mytable').on('click','.delete',function(){ var product_id =
+      $(this).data('id'); $('#DeleteModal').modal('show');
+      $('.product_id2').val(product_id); }); });
+    </script>
+  </body>
+</html>
